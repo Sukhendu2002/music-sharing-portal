@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Upload Audio File</h1>
+<form method="POST" action="{% url 'upload' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.file_name.label_tag }}
+    {{ form.file_name }}
+    {{ form.audio_file.label_tag }}
+    {{ form.audio_file }}
+    {{ form.file_status.label_tag }}
+    {{ form.file_status }}
+    <div id="email-fields-container" style="display: none;">
+        <label for="id_allowed_emails">Allowed Emails:</label>
+        <textarea name="allowed_emails" placeholder="Enter multiple emails separated by commas"></textarea>
+    </div>
+    <input type="submit" value="Upload">
+</form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const emailFieldsContainer = document.getElementById('email-fields-container');
+        const fileStatusField = document.querySelector('select[name="file_status"]');
+        const addEmailButton = document.getElementById('add-email-button');
+
+        fileStatusField.addEventListener('change', function () {
+            if (this.value === 'protected') {
+                emailFieldsContainer.style.display = 'block';
+            } else {
+                emailFieldsContainer.style.display = 'none';
+            }
+        });
+    });
+</script>
+{% endblock %}

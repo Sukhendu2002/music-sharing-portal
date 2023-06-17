@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Public Audio Files</h1>
+<div class="file-list">
+    {% for file in files %}
+    <div class="file-item">
+        <div class="file-card">
+            <span class="file-name">{{ file.file.file_name }}</span> (Owner: {{ file.file.owner.name }})
+            {% if user == file.file.owner %}
+            <div class="file-actions">
+
+                <a href="{% url 'delete_file' file.file.id %}" class="btn-delete">Delete</a>
+            </div>
+            {% else %}
+            {% if file.is_shared %}
+            <div class="file-message">
+                <span>You have shared access to this file.</span>
+            </div>
+            {% endif %}
+            {% endif %}
+        </div>
+        <audio controls>
+            <source src="{{ file.file.audio_file.url }}" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <hr>
+    </div>
+    {% empty %}
+    <li>No public audio files available.</li>
+    {% endfor %}
+</div>
+{% endblock %}

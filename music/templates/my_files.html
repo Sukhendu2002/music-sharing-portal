@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>My Uploaded Files</h1>
+<ul>
+    {% for file in uploaded_files %}
+
+    <div class="file-item">
+        <div class="file-card">
+            <span class="file-name">{{ file.file_name }}</span> (Owner: {{ file.owner.name }})
+            <span>
+                {{ file.file_status}}
+            </span>
+            <div class="file-actions">
+                <a href="{% url 'delete_file' file.id %}" class="btn-delete">Delete</a>
+            </div>
+        </div>
+        <audio controls>
+            <source src="{{ file.audio_file.url }}" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <hr>
+    </div>
+    {% empty %}
+    <li>No files uploaded.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
