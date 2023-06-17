@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-=i(hqows#2_@13bcco#m2vpg(_)etbd1zq7mh5k#2batwovty=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [*]
+ALLOWED_HOSTS = ['*']
 
 AUTH_USER_MODEL = 'music.CustomUser'
 LOGIN_URL = '/login'
